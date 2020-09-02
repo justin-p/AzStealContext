@@ -15,7 +15,7 @@ The AzureRmContext file can have multiple 'contexts'. This happens when the `Con
    - To prepare a AzContext file: `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files'`
    - To prepare and Import a AzContext file: `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files' -ImportContext`
    - To prepare a AzContext file and overwrite a existing OutFile: `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files' -ImportContext -Force`
-   - To change the default OutFile name `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files' -OutFile 'CustomFilename.json'`
+   - To change the default OutFile name: `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files' -OutFile 'CustomFilename.json'`
    
 # Contributing
 
