@@ -39,7 +39,7 @@ Function Invoke-AzStealContext {
         [switch]$ImportContext,
         [Switch]$Force
     )
-    begin {
+    Begin {
         Try {
             If (!(Test-Path $(Join-Path $Path "TokenCache.dat"))) {
                 Write-Error "Unable to find `'TokenCache.dat`'-file in folder: $path" -ErrorAction Stop
