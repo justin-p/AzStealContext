@@ -12,8 +12,8 @@ The AzureRmContext file can have multiple 'contexts'. This happens when the `Con
 2. 'Borrow' the `TokenCache.dat` and `AzureRmContext.json` files.
 3. Load this function. `iex((iwr https://raw.githubusercontent.com/justin-p/AzStealContext/master/Invoke-AzStealContext.ps1).content)`
 4. Run the function
-   - To prepair a AzContext file: `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files'`
-   - To prepair and Import a AzContext file: `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files' -ImportContext`
+   - To prepare a AzContext file: `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files'`
+   - To prepare and Import a AzContext file: `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files' -ImportContext`
    - Overwrite a existing OutFile: `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files' -ImportContext -Force`
    - To change the default OutFile `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files' -OutFile 'CustomFilename.json'`
    
