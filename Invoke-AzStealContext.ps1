@@ -67,7 +67,11 @@ Function Invoke-AzStealContext {
     }
     Process {
         Try {
-            $bytes = Get-Content $(Join-Path $Path "TokenCache.dat") -Encoding byte
+            If ($PSVersionTable.PSVersion.Major -eq 5) {
+                $bytes = Get-Content $(Join-Path $Path "TokenCache.dat") -Encoding Byte
+            } ElseIf ($PSVersionTable.PSVersion.Major -gt 5) {
+                $bytes = Get-Content $(Join-Path $Path "TokenCache.dat") -AsByteStream
+            }
             $b64 = [Convert]::ToBase64String($bytes)
             $AzureRmContext = Get-Content $(Join-Path $Path "AzureRmContext.json") | ConvertFrom-Json
             If (($AzureRmContext.contexts.PSObject.Properties.Name).count -gt 1) {
