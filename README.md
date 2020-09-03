@@ -2,7 +2,7 @@
 
 A PowerShell function that automates the process of stealing the Azure context of a users .Azure folder. 
 
-When a user authenticates using the Az PowerShell module a `.Azure` folder is created in the users home folder. This folder contains multipele files including the `AzureRmContext.json` and `TokenCache.dat` files. These files contain all the information a attacker needs to create a 'context file' which is equivalent of the output from the [`Save-AzContext`](https://docs.microsoft.com/en-us/powershell/module/az.accounts/save-azcontext?view=azps-4.6.1) command. This PowerShell function automates the process a attacker would need to take to create a 'context' file.
+When a user uses the Az PowerShell module a `.Azure` folder is created in the users home folder. This folder contains multiple files including the `AzureRmContext.json` and `TokenCache.dat` files. If a user has authenticated using the `Connect-AzAccount` cmdlet these files contain all the information a attacker needs to create a 'AzContext' file which is equivalent of the output from the [`Save-AzContext`](https://docs.microsoft.com/en-us/powershell/module/az.accounts/save-azcontext?view=azps-4.6.1) cmdlet. This PowerShell function automates the process a attacker would need to take to create a 'AzContext' file.
 
 The AzureRmContext file can have multiple 'contexts'. This happens when the `Connect-AzAccount` is run multiple times by the same user with different Azure credentials. This function will verify if there are multiple contexts and if so, will ask you which one to use as the default context. 
 
